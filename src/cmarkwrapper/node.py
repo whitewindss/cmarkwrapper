@@ -1,4 +1,5 @@
 from typing import List, Optional
+
 from paka.cmark import lowlevel
 
 from .types import NodeType

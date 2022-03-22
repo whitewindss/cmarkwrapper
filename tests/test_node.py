@@ -1,6 +1,6 @@
-from cmarkwrapper import MarkdownConverter
+from cmarkwrapper import MarkdownParser
 
-root = MarkdownConverter(
+root = MarkdownParser(
 """
 *Italic*  
 

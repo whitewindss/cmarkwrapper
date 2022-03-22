@@ -1,16 +1,7 @@
 from paka.cmark import lowlevel
 
+from .types import NodeType, EventType
 from .node import Node
-
-
-EVENT_ENTER = lowlevel.EVENT_ENTER  # type: int
-"""Entering node."""
-
-EVENT_EXIT = lowlevel.EVENT_EXIT  # type: int
-"""Exiting node."""
-
-EVENT_DONE = lowlevel.EVENT_DONE  # type: int
-"""Done iteration."""
 
 
 class NodeIter:
@@ -23,7 +14,7 @@ class NodeIter:
         return self
 
     def __next__(self):
-        if self.next() != EVENT_DONE:
+        if self.next() != EventType.EVENT_DONE:
             return self.get_node()
         raise StopIteration
 
@@ -36,25 +27,25 @@ class NodeIter:
         :returns: One of :ref:`iteration event types <iteration_event_types>`.
 
         """
-        return lowlevel.iter_next(self._iter)
+        return EventType(lowlevel.iter_next(self._iter))
 
     def get_node(self):
         """Return current node."""
         return Node(lowlevel.iter_get_node(self._iter))
 
-    def get_event_type(self) -> int:
+    def get_event_type(self):
         """Return current event type.
 
         :returns: One of :ref:`iteration event types <iteration_event_types>`.
 
         """
-        return lowlevel.iter_get_event_type(self._iter)
+        return NodeType(lowlevel.iter_get_event_type(self._iter)) 
 
     def get_root(self):
         """Return root node."""
         return Node(lowlevel.iter_get_root(self._iter))
 
-    def iter_reset(self, node: Node, event: int):
+    def iter_reset(self, node: Node, event: EventType):
         """Reset the iterator.
 
         Parameters
