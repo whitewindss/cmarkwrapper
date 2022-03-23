@@ -21,7 +21,7 @@ class NodeIter:
     def free(self):
         lowlevel.iter_free(self._iter)
 
-    def next(self) -> int:
+    def next(self):
         """Advance to next node and return event type.
 
         :returns: One of :ref:`iteration event types <iteration_event_types>`.

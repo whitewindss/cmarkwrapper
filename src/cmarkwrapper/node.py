@@ -2,7 +2,7 @@ from typing import List, Optional
 
 from paka.cmark import lowlevel
 
-from .types import NodeType
+from .types import ListType, NodeType
 
 
 class Node:
@@ -215,15 +215,15 @@ class Node:
         res = lowlevel.node_set_heading_level(self._node, level)
         return bool(res)
 
-    def get_list_type(self) -> List[NodeType]:
+    def get_list_type(self) -> ListType:
         """Return list type of node.
 
         :returns: One of :ref:`list types <list_types>`.
 
         """
-        return lowlevel.node_get_list_type(self._node)
+        return ListType(lowlevel.node_get_list_type(self._node))
 
-    def set_list_type(self, list_type: NodeType):
+    def set_list_type(self, list_type: ListType):
         """Set the list type of node.
 
         Parameters
@@ -235,11 +235,11 @@ class Node:
 
         Returns
         -------
-        int
-            ``1`` on success, ``0`` on failure.
+        bool
+            ``True`` on success, ``False`` on failure.
 
         """
-        res = lowlevel.node_set_list_type(self._node, list_type)
+        res = lowlevel.node_set_list_type(self._node, list_type.value)
         return bool(res)
 
     def get_list_delim(self):
@@ -262,8 +262,8 @@ class Node:
 
         Returns
         -------
-        int
-            ``1`` on success, ``0`` on failure.
+        bool
+            ``True`` on success, ``False`` on failure.
 
         """
         res = lowlevel.node_set_list_delim(self._node, list_delim)
@@ -292,8 +292,8 @@ class Node:
 
         Returns
         -------
-        int
-            ``1`` on success, ``0`` on failure.
+        bool
+            ``True`` on success, ``False`` on failure.
 
         """
         res = lowlevel.node_set_list_start(self._node, start)

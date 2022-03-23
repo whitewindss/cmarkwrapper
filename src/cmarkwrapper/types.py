@@ -112,3 +112,27 @@ class NodeType(int, Enum):
 
     NODE_LAST_INLINE = lowlevel.NODE_LAST_INLINE  # type: int
     """Last inline."""
+
+
+class ListType(int, Enum):
+
+    BULLET_LIST = lowlevel.BULLET_LIST  # type: int
+    """Bullet list."""
+
+    ORDERED_LIST = lowlevel.ORDERED_LIST  # type: int
+    """Ordered list."""
+
+    NO_LIST = lowlevel.NO_LIST  # type: int
+    """Node is not a list."""
+
+
+class UnknowType(int, Enum):
+
+    PAREN_DELIM = lowlevel.PAREN_DELIM  # type: int
+    """``)``"""
+
+    PERIOD_DELIM = lowlevel.PERIOD_DELIM  # type: int
+    """``.``"""
+
+    NO_DELIM = lowlevel.NO_DELIM  # type: int
+    """No list delimiter."""
