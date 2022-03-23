@@ -1,5 +1,5 @@
 # cmarkwrapper
-`cmarkwrapper`是一个基于[paka.cmark](https://github.com/kapyshin/paka.cmark)的[cmark](https://github.com/commonmark/cmark)封装，更加符合使用习惯。
+`cmarkwrapper`是一个基于[paka.cmark](https://github.com/kapyshin/paka.cmark)的[cmark](https://github.com/commonmark/cmark) 封装，更加符合使用习惯。
 
 ## 安装
 **使用 `pypi`**  

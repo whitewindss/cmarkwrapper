@@ -1,4 +1,4 @@
-__version__ = __import__("paka.cmark", fromlist=["cmark"]).get_version()
+__version__ = __import__("paka.cmark", fromlist=["cmark"]).get_version() + "dev"
 
 
 from .func import (
