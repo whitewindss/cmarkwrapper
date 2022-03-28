@@ -1,8 +1,9 @@
 from paka import cmark
 from paka.cmark import lowlevel
 
-from .node import Node
 from .types import Option
+from .node import Node
+
 
 
 class MarkdownParser:
@@ -14,6 +15,7 @@ class MarkdownParser:
         self._encoding = encoding  # TODO support other encoding
 
     def parse_document(self, options: Option=Option.OPT_DEFAULT):
+        """parse markdown to a node tree."""
         cmd = lowlevel.text_to_c(self._md)
-        root = lowlevel.parse_document(cmd, len(cmd), options)
+        root = lowlevel.parse_document(cmd, len(cmd), options.value)
         return Node(root)

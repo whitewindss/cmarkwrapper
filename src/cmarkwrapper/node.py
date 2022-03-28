@@ -1,8 +1,8 @@
-from typing import List, Optional
+from typing import Optional
 
 from paka.cmark import lowlevel
 
-from .types import ListType, NodeType
+from .types import ListType, NodeType, DelimiterType
 
 
 class Node:
@@ -20,7 +20,7 @@ class Node:
             return self.__class__(n)
         return None
 
-    def next(self):
+    def next(self) -> Optional["Node"]:
         """Return next node, if available.
 
         :returns: A node or None.
@@ -28,7 +28,7 @@ class Node:
         """
         return self.__visit("node_next")
 
-    def previous(self):
+    def previous(self) -> Optional["Node"]:
         """Return previous node, if available.
 
         :returns: A node or None.
@@ -36,7 +36,7 @@ class Node:
         """
         return self.__visit("node_previous")
 
-    def parent(self):
+    def parent(self) -> Optional["Node"]:
         """Return a parent of node, if available.
 
         :returns: A node or None.
@@ -44,7 +44,7 @@ class Node:
         """
         return self.__visit("node_parent")
 
-    def first_child(self):
+    def first_child(self) -> Optional["Node"]:
         """Return first child of node, if available.
 
         :returns: A node or None.
@@ -52,7 +52,7 @@ class Node:
         """
         return self.__visit("node_first_child")
 
-    def last_child(self):
+    def last_child(self) -> Optional["Node"]:
         """Return last child of node, if available.
 
         :returns: A node or None.
@@ -64,57 +64,40 @@ class Node:
         res = getattr(lowlevel, func)(self._node, n._node)
         return bool(res)
 
-    def insert_before(self, sibling: "Node"):
+    def insert_before(self, sibling: "Node") -> bool:
         """Insert sibling before node.
 
-        Returns
-        -------
-        bool
-            ``True`` on success, ``False`` on failure.
-
+        :return: ``True`` on success, ``False`` on failure.
         """
         return self.__operate("node_insert_before", sibling)
 
-    def insert_after(self, sibling: "Node"):
+    def insert_after(self, sibling: "Node") -> bool:
         """Insert sibling after node.
 
-        Returns
-        -------
-        bool
-            ``True`` on success, ``False`` on failure.
-
+        :return: ``True`` on success, ``False`` on failure.
         """
         return self.__operate("node_insert_after", sibling)
 
-    def prepend_child(self, child: "Node"):
+    def prepend_child(self, child: "Node") -> bool:
         """Prepend child to children of node.
 
-        Returns
-        -------
-        bool
-            ``True`` on success, ``False`` on failure.
-
+        :return: ``True`` on success, ``False`` on failure.
         """
         return self.__operate("node_prepend_child", child)
 
-    def append_child(self, child: "Node"):
+    def append_child(self, child: "Node") -> bool:
         """Append child to children of node.
 
-        Returns
-        -------
-        bool
-            ``True`` on success, ``False`` on failure.
-
+        :returns: ``True`` on success, ``False`` on failure.
         """
         return self.__operate("node_append_child", child)
 
-    def get_type(self):
+    def get_type(self) -> NodeType:
         """Return type of node.
 
-        :returns: One of :ref:`node types <node_types>`.
-
+        :returns: One of NodeType.
         """
-        return lowlevel.node_get_type(self._node)
+        return NodeType(lowlevel.node_get_type(self._node))
 
     def __get_info(self, func: str, free: bool = False) -> str:
         ct = getattr(lowlevel, func)(self._node)
@@ -125,11 +108,11 @@ class Node:
         ct: int = getattr(lowlevel, func)(self._node, ci)
         return bool(ct)
 
-    def get_type_string(self):
+    def get_type_string(self) -> str:
         """Return type of node as string."""
         return self.__get_info("node_get_type_string")
 
-    def get_fence_info(self):
+    def get_fence_info(self) -> Optional[str]:
         """Return fence info from fenced code block.
 
         For nodes having type other than :py:data:`NODE_CODE_BLOCK`
@@ -138,25 +121,16 @@ class Node:
         """
         return self.__get_info("node_get_fence_info")
 
-    def set_fence_info(self, info: str):
+    def set_fence_info(self, info: str) -> bool:
         """Set fence info of fenced code block.
 
-        Parameters
-        ----------
-        node
-            Node on which to operate.
-        info: str
-            Fence info.
-
-        Returns
-        -------
-        bool
-            ``True`` on success, ``False`` on failure.
-
+        :param info: Fence info.
+            
+        :return: ``True`` on success, ``False`` on failure.
         """
         return self.__set_info("node_set_fence_info", info)
 
-    def get_literal(self):
+    def get_literal(self) -> Optional[str]:
         """Return string contents of node.
 
         Returns None for nodes having type other than
@@ -167,50 +141,28 @@ class Node:
         """
         return self.__get_info("node_get_literal")
 
-    def set_literal(self, contents: str):
+    def set_literal(self, contents: str) -> bool:
         """Set string contents of node.
 
-        Parameters
-        ----------
-        node
-            Node on which to operate.
-        contents: str
-            New contents of node.
+        :param contents: New contents of node.
 
-        Returns
-        -------
-        bool
-            ``True`` on success, ``False`` on failure.
-
+        :return: ``True`` on success, ``False`` on failure.
         """
         return self.__set_info("node_set_literal", contents)
 
     def get_heading_level(self) -> int:
         """Return level of heading.
 
-        Returns
-        -------
-        int
-            ``[1, 6]`` for headings, ``0`` for non-heading nodes.
-
+        :return: ``[1, 6]`` for headings, ``0`` for non-heading nodes.
         """
         return lowlevel.node_get_heading_level(self._node)
 
     def set_heading_level(self, level: int):
         """Set level of heading.
 
-        Parameters
-        ----------
-        node
-            Node on which to operate.
-        level: int
-            ``[1, 6]``
+        :param level: ``[1, 6]``
 
-        Returns
-        -------
-        bool
-            ``True`` on success, ``False`` on failure.
-
+        :return: ``True`` on success, ``False`` on failure.
         """
         res = lowlevel.node_set_heading_level(self._node, level)
         return bool(res)
@@ -218,83 +170,49 @@ class Node:
     def get_list_type(self) -> ListType:
         """Return list type of node.
 
-        :returns: One of :ref:`list types <list_types>`.
-
+        :returns: One of ListType.
         """
         return ListType(lowlevel.node_get_list_type(self._node))
 
-    def set_list_type(self, list_type: ListType):
+    def set_list_type(self, list_type: ListType) -> bool:
         """Set the list type of node.
+        
+        :param list_type: One of ListType.
 
-        Parameters
-        ----------
-        node
-            Node on which to operate.
-        list_type
-            One of :ref:`list types <list_types>`.
-
-        Returns
-        -------
-        bool
-            ``True`` on success, ``False`` on failure.
-
+        :return: ``True`` on success, ``False`` on failure.
         """
         res = lowlevel.node_set_list_type(self._node, list_type.value)
         return bool(res)
 
-    def get_list_delim(self):
+    def get_list_delim(self) -> DelimiterType:
         """Return type of list delimiter.
 
-        :returns: One of :ref:`list delimiters <list_delimiters>`.
-
+        :returns: One of DelimiterType.
         """
-        return lowlevel.node_get_list_delim(self._node)
+        return DelimiterType(lowlevel.node_get_list_delim(self._node))
 
-    def set_list_delim(self, list_delim):
+    def set_list_delim(self, list_delim: DelimiterType):
         """Set the type of list delimiter for node.
 
-        Parameters
-        ----------
-        node
-            Node on which to operate.
-        list_delim
-            One of :ref:`list delimiters <list_delimiters>`.
+        :param list_delim: One of DelimiterType.
 
-        Returns
-        -------
-        bool
-            ``True`` on success, ``False`` on failure.
-
+        :return: ``True`` on success, ``False`` on failure.
         """
         res = lowlevel.node_set_list_delim(self._node, list_delim)
         return bool(res)
 
     def get_list_start(self) -> int:
         """Return starting number of list.
-
-        Returns
-        -------
-        int
-            Starting number of an ordered list or ``0``.
-
+        :return: Starting number of an ordered list or ``0``.
         """
         return lowlevel.node_get_list_start(self._node)
 
-    def set_list_start(self, start: int):
+    def set_list_start(self, start: int) -> bool:
         """Set starting number of ordered list.
 
-        Parameters
-        ----------
-        node
-            Ordered list.
-        start: int
-            Starting number.
+        :param start: Starting number.
 
-        Returns
-        -------
-        bool
-            ``True`` on success, ``False`` on failure.
-
+        :return: ``True`` on success, ``False`` on failure.
         """
         res = lowlevel.node_set_list_start(self._node, start)
         return bool(res)
@@ -302,29 +220,16 @@ class Node:
     def get_list_tight(self) -> int:
         """Return 1 if node is a tight list.
 
-        Returns
-        -------
-        int
-            ``1`` if node is a tight list, ``0`` otherwise.
-
+        :return: ``1`` if node is a tight list, ``0`` otherwise.
         """
         return lowlevel.node_get_list_tight(self._node)
 
     def set_list_tight(self, tight: int):
         """Set tightness of list.
 
-        Parameters
-        ----------
-        node
-            List.
-        tight: int
-            ``1`` for tight, ``0`` for loose.
+        :param tight: ``1`` for tight, ``0`` for loose.
 
-        Returns
-        -------
-        int
-            ``1`` on success, ``0`` on failure.
-
+        :return: ``1`` on success, ``0`` on failure.
         """
         res = lowlevel.node_set_list_tight(self._node, tight)
         return int(res)
@@ -333,86 +238,51 @@ class Node:
         """Return URL of image or link, or None."""
         return self.__get_info("node_get_url")
 
-    def set_url(self, url: str):
+    def set_url(self, url: str) -> bool:
         """Set URL of image or link.
 
-        Parameters
-        ----------
-        node
-            Image or link.
-        url: str
-            New URL.
+        :param url: New URL.
 
-        Returns
-        -------
-        bool
-            ``True`` on success, ``False`` on failure.
-
+        :return: ``True`` on success, ``False`` on failure.
         """
         return self.__set_info("node_set_url", url)
 
-    def get_title(self):
+    def get_title(self) -> Optional[str]:
         """Return title of image or link, or None."""
         return self.__get_info("node_get_title")
 
-    def set_title(self, title: str):
+    def set_title(self, title: str) -> bool:
         """Set title of image or link.
 
-        Parameters
-        ----------
-        node
-            Image or link.
-        title: str
-            New title.
-
-        Returns
-        -------
-        bool
-            ``True`` on success, ``False`` on failure.
-
+        :param title: New title.
+        
+        :return: ``True`` on success, ``False`` on failure.
         """
         return self.__set_info("node_set_title", title)
 
     def get_start_line(self) -> int:
         """Return line on which node begins.
-
-        Returns
-        -------
-        int
-            Line number (starts from ``1``).
-
+        :return: Line number (starts from ``1``).
         """
         return lowlevel.node_get_start_line(self._node)
 
     def get_start_column(self) -> int:
         """Return column at which node begins.
 
-        Returns
-        -------
-        int
-            Column number (starts from ``1``).
-
+        :return: Column number (starts from ``1``).
         """
         return lowlevel.node_get_start_column(self._node)
 
     def get_end_line(self) -> int:
         """Return line on which node ends.
 
-        Returns
-        -------
-        int
-            Line number (starts from ``1``).
-
+        :return: Line number (starts from ``1``).
         """
         return lowlevel.node_get_end_line(self._node)
 
     def get_end_column(self) -> int:
         """Return column at which node ends.
 
-        Returns
-        -------
-        int
-            Column number (starts from ``1``).
-
+        :return: Column number (starts from ``1``).
         """
         return lowlevel.node_get_end_column(self._node)

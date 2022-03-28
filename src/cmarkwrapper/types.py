@@ -126,7 +126,7 @@ class ListType(int, Enum):
     """Node is not a list."""
 
 
-class UnknowType(int, Enum):
+class DelimiterType(int, Enum):
 
     PAREN_DELIM = lowlevel.PAREN_DELIM  # type: int
     """``)``"""
@@ -136,3 +136,13 @@ class UnknowType(int, Enum):
 
     NO_DELIM = lowlevel.NO_DELIM  # type: int
     """No list delimiter."""
+
+
+class LineBreaks(str, Enum):
+    """How line breaks will be rendered."""
+
+    soft = "soft"
+    r"""As ``\n``\ s."""
+
+    hard = "hard"
+    r"""As ``<br />``\ s."""
