@@ -17,7 +17,7 @@ EventType
    :members:
    :inherited-members:
 
-EventType
+NodeType
 ------------------
 .. autoclass:: NodeType
    :members:
