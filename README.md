@@ -1,4 +1,9 @@
 # cmarkwrapper
+![Python Version](https://img.shields.io/badge/python-v3.7.5-brightgreen)
+![System Platform](https://img.shields.io/badge/platform-ubuntu-brightgreen.svg)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Documentation Status](https://readthedocs.org/projects/cmarkwrapper/badge/?version=latest)](https://cmarkwrapper.readthedocs.io/zh/latest/?badge=latest)
+
 `cmarkwrapper`是一个基于[paka.cmark](https://github.com/kapyshin/paka.cmark)的[cmark](https://github.com/commonmark/cmark) 封装，更加符合使用习惯。
 
 ## 安装
