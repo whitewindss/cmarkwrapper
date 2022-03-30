@@ -2,7 +2,7 @@ from typing import Union
 
 from paka import cmark
 
-from .types import Option, LineBreaks
+from .types import LineBreaks, Option
 
 
 def markdown_to_html(
@@ -27,13 +27,15 @@ def markdown_to_html(
     :return: HTML string.
     """
     if isinstance(breaks, LineBreaks):
-        breaks = breaks.value 
+        breaks = breaks.value
     return cmark.to_html(text, breaks, safe, sourcepos, smart.value)
 
 
-def markdown_to_xml(text: str, sourcepos: bool = False, smart: Option = Option.OPT_SMART) -> str:
+def markdown_to_xml(
+    text: str, sourcepos: bool = False, smart: Option = Option.OPT_SMART
+) -> str:
     r"""Convert markup to XML.
-    
+
     :param text: Text marked up with `CommonMark <http://commonmark.org>`_.
     :param sourcepos: If ``True``, add ``sourcepos`` attribute to all block elements(that is, use ``CMARK_OPT_SOURCEPOS``).
     :param smart: Use :py:data:`~cmarkwrapper.types.OPTION.OPT_SMART`.
@@ -44,10 +46,13 @@ def markdown_to_xml(text: str, sourcepos: bool = False, smart: Option = Option.O
 
 
 def markdown_to_commonmark(
-    text: str, breaks: Union[bool, LineBreaks] = False, width: int = 0, smart: Option = Option.OPT_SMART
+    text: str,
+    breaks: Union[bool, LineBreaks] = False,
+    width: int = 0,
+    smart: Option = Option.OPT_SMART,
 ) -> str:
     r"""Convert markup to CommonMark.
-    
+
     :param text: Text marked up with `CommonMark <http://commonmark.org>`_.
     :param breaks: bool or LineBreaks
         How line breaks will be rendered. If ``True``,
@@ -67,10 +72,13 @@ def markdown_to_commonmark(
 
 
 def markdown_to_man(
-    text: str, breaks: Union[bool, LineBreaks] = False, width: int = 0, smart: Option = Option.OPT_SMART
+    text: str,
+    breaks: Union[bool, LineBreaks] = False,
+    width: int = 0,
+    smart: Option = Option.OPT_SMART,
 ) -> str:
     r"""Convert markup to groff man page.
-    
+
     :param text: Text marked up with `CommonMark <http://commonmark.org>`_.
     :param breaks: bool or LineBreaks
         How line breaks will be rendered. If ``True``,
@@ -91,10 +99,13 @@ def markdown_to_man(
 
 
 def markdown_to_latex(
-    text: str, breaks: Union[bool, LineBreaks] = False, width: int = 0, smart: Option = Option.OPT_SMART
+    text: str,
+    breaks: Union[bool, LineBreaks] = False,
+    width: int = 0,
+    smart: Option = Option.OPT_SMART,
 ) -> str:
     r"""Convert markup to LaTeX.
-    
+
     :param text: Text marked up with `CommonMark <http://commonmark.org>`_.
     :param breaks: bool or LineBreaks
         How line breaks will be rendered. If ``True``,

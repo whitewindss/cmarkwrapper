@@ -2,11 +2,10 @@ from typing import Optional
 
 from paka.cmark import lowlevel
 
-from .types import ListType, NodeType, DelimiterType
+from .types import DelimiterType, ListType, NodeType
 
 
 class Node:
-
     def __init__(self, node) -> None:
         self._node = node
 
@@ -125,7 +124,7 @@ class Node:
         """Set fence info of fenced code block.
 
         :param info: Fence info.
-            
+
         :return: ``True`` on success, ``False`` on failure.
         """
         return self.__set_info("node_set_fence_info", info)
@@ -176,7 +175,7 @@ class Node:
 
     def set_list_type(self, list_type: ListType) -> bool:
         """Set the list type of node.
-        
+
         :param list_type: One of ListType.
 
         :return: ``True`` on success, ``False`` on failure.
@@ -255,7 +254,7 @@ class Node:
         """Set title of image or link.
 
         :param title: New title.
-        
+
         :return: ``True`` on success, ``False`` on failure.
         """
         return self.__set_info("node_set_title", title)

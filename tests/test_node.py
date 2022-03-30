@@ -1,7 +1,7 @@
 from cmarkwrapper import MarkdownParser
 
 root = MarkdownParser(
-"""
+    """
 *Italic*  
 
 **Bold**  
@@ -27,11 +27,14 @@ root = MarkdownParser(
 def teardown():
     root.free()
 
+
 def test_get_start_line():
     assert root.get_start_line() == 1
 
+
 def test_get_type_string():
     assert root.get_type_string() == "document"
+
 
 def test_next():
     c = root.first_child()
@@ -40,6 +43,7 @@ def test_next():
     assert d
     assert d.get_type_string() == "paragraph"
 
+
 def test_previous():
     c = root.last_child()
     assert c
@@ -47,10 +51,12 @@ def test_previous():
     assert d
     assert d.get_type_string() == "block_quote"
 
+
 def test_first_child():
     c = root.first_child()
     assert c
     assert c.get_type_string() == "paragraph"
+
 
 def test_last_child():
     c = root.last_child()

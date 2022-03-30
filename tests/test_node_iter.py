@@ -1,8 +1,7 @@
 from cmarkwrapper import MarkdownParser, NodeIter
 
-
 root = MarkdownParser(
-"""
+    """
 *Italic*  
 
 **Bold**  
@@ -33,4 +32,6 @@ def teardown():
 
 def test_iter_node():
     for node in iter:
-        print(f"{node.get_start_line():3} {node.get_type_string():10} {node.get_literal()}")
+        print(
+            f"{node.get_start_line():3} {node.get_type_string():10} {node.get_literal()}"
+        )

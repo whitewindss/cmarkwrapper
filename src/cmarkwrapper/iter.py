@@ -1,11 +1,10 @@
 from paka.cmark import lowlevel
 
-from .types import EventType
 from .node import Node
+from .types import EventType
 
 
 class NodeIter:
-
     def __init__(self, root: Node) -> None:
         self._root = root
         self._iter = lowlevel.iter_new(root._node)
@@ -37,7 +36,7 @@ class NodeIter:
 
         :returns: One of EventType.
         """
-        return EventType(lowlevel.iter_get_event_type(self._iter)) 
+        return EventType(lowlevel.iter_get_event_type(self._iter))
 
     def get_root(self) -> Node:
         """Return root node."""
@@ -48,7 +47,7 @@ class NodeIter:
 
         :param node: Node to make current.
         :param event: EventType to make current.
-            
+
         :return: None
         """
         return lowlevel.iter_reset(self._iter, node._node, event.value)
