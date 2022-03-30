@@ -30,4 +30,4 @@ print(html)
 ```
 
 # 文档
-[cmarkwrapper.readthedocs.io](https://cmarkwrapper.readthedocs.io/en/latest/)
+Documentation is on [Read the Docs](https://cmarkwrapper.readthedocs.io/en/latest/). Code repository and issue tracker are on [GitHub](https://github.com/yangfan9702/cmarkwrapper).
