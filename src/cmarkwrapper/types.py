@@ -18,43 +18,45 @@ class Option(int, Enum):
     """Render with “sourcepos” information."""
 
     OPT_UNSAFE = lowlevel.OPT_UNSAFE  # type: int
-    """Allow raw HTML and unsafe links while rendering."""
+    """渲染时允许原始的HTML和不安全的链接"""
 
     OPT_SMART = lowlevel.OPT_SMART  # type: int
     """Render straight quotes as curly, ``---`` as em dash, ``--`` as en dash."""
 
 
-class EventType(int, Enum):
+class IterEvent(int, Enum):
+    """迭代事件类型"""
 
     EVENT_ENTER = lowlevel.EVENT_ENTER  # type: int
-    """Entering node."""
+    """进入节点"""
 
     EVENT_EXIT = lowlevel.EVENT_EXIT  # type: int
-    """Exiting node."""
+    """退出节点"""
 
     EVENT_DONE = lowlevel.EVENT_DONE  # type: int
-    """Done iteration."""
+    """迭代完成"""
 
 
 class NodeType(int, Enum):
+    "节点类型"
 
     NODE_NONE = lowlevel.NODE_NONE  # type: int
     """Error status."""
 
     NODE_CODE_BLOCK = lowlevel.NODE_CODE_BLOCK  # type: int
-    """Block of code."""
+    """代码块"""
 
     NODE_HTML_BLOCK = lowlevel.NODE_HTML_BLOCK  # type: int
-    """Raw HTML block."""
+    """原始HTML块"""
 
     NODE_DOCUMENT = lowlevel.NODE_DOCUMENT  # type: int
-    """Document."""
+    """文档"""
 
     NODE_BLOCK_QUOTE = lowlevel.NODE_BLOCK_QUOTE  # type: int
-    """Block quote."""
+    """引用块"""
 
     NODE_LIST = lowlevel.NODE_LIST  # type: int
-    """List."""
+    """列表"""
 
     NODE_ITEM = lowlevel.NODE_ITEM  # type: int
     """List item."""
@@ -63,22 +65,22 @@ class NodeType(int, Enum):
     """Block of custom."""
 
     NODE_PARAGRAPH = lowlevel.NODE_PARAGRAPH  # type: int
-    """Paragraph."""
+    """段落"""
 
     NODE_HEADING = lowlevel.NODE_HEADING  # type: int
-    """Heading."""
+    """标题"""
 
     NODE_THEMATIC_BREAK = lowlevel.NODE_THEMATIC_BREAK  # type: int
     """Thematic break."""
 
     NODE_FIRST_BLOCK = lowlevel.NODE_FIRST_BLOCK  # type: int
-    """First block."""
+    """起始块"""
 
     NODE_LAST_BLOCK = lowlevel.NODE_LAST_BLOCK  # type: int
-    """Last block."""
+    """结束块"""
 
     NODE_TEXT = lowlevel.NODE_TEXT  # type: int
-    """Text."""
+    """文本"""
 
     NODE_SOFTBREAK = lowlevel.NODE_SOFTBREAK  # type: int
     """Soft break."""
@@ -87,25 +89,25 @@ class NodeType(int, Enum):
     """Line break."""
 
     NODE_CODE = lowlevel.NODE_CODE  # type: int
-    """Inline code."""
+    """行内代码"""
 
     NODE_HTML_INLINE = lowlevel.NODE_HTML_INLINE  # type: int
-    """Inline HTML."""
+    """行内HTML"""
 
     NODE_CUSTOM_INLINE = lowlevel.NODE_CUSTOM_INLINE  # type: int
     """Inline custom."""
 
     NODE_EMPH = lowlevel.NODE_EMPH  # type: int
-    """Emphasis."""
+    """强调"""
 
     NODE_STRONG = lowlevel.NODE_STRONG  # type: int
     """Strong emphasis."""
 
     NODE_LINK = lowlevel.NODE_LINK  # type: int
-    """Link."""
+    """链接"""
 
     NODE_IMAGE = lowlevel.NODE_IMAGE  # type: int
-    """Image."""
+    """图片"""
 
     NODE_FIRST_INLINE = lowlevel.NODE_FIRST_INLINE  # type: int
     """First inline."""
@@ -117,16 +119,17 @@ class NodeType(int, Enum):
 class ListType(int, Enum):
 
     BULLET_LIST = lowlevel.BULLET_LIST  # type: int
-    """Bullet list."""
+    """无序号列表"""
 
     ORDERED_LIST = lowlevel.ORDERED_LIST  # type: int
-    """Ordered list."""
+    """带序号列表"""
 
     NO_LIST = lowlevel.NO_LIST  # type: int
-    """Node is not a list."""
+    """非列表"""
 
 
-class DelimiterType(int, Enum):
+class Delimiter(int, Enum):
+    """分隔符"""
 
     PAREN_DELIM = lowlevel.PAREN_DELIM  # type: int
     """``)``"""
@@ -135,11 +138,11 @@ class DelimiterType(int, Enum):
     """``.``"""
 
     NO_DELIM = lowlevel.NO_DELIM  # type: int
-    """No list delimiter."""
+    """非分隔符"""
 
 
 class LineBreaks(str, Enum):
-    """How line breaks will be rendered."""
+    """换行符将被渲染成？"""
 
     soft = "soft"
     r"""As ``\n``\ s."""

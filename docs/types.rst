@@ -11,9 +11,9 @@ Option
    :members:
    :inherited-members:
 
-EventType
+IterEvent
 ------------------
-.. autoclass:: EventType
+.. autoclass:: IterEvent
    :members:
    :inherited-members:
 
@@ -29,9 +29,9 @@ ListType
    :members:
    :inherited-members:
 
-DelimiterType
+Delimiter
 ------------------
-.. autoclass:: DelimiterType
+.. autoclass:: Delimiter
    :members:
    :inherited-members:
 

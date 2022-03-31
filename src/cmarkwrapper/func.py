@@ -1,6 +1,6 @@
 from typing import Union
 
-from paka import cmark
+from paka.cmark import to_html, to_xml, to_commonmark, to_man, to_latex
 
 from .types import LineBreaks, Option
 
@@ -28,7 +28,7 @@ def markdown_to_html(
     """
     if isinstance(breaks, LineBreaks):
         breaks = breaks.value
-    return cmark.to_html(text, breaks, safe, sourcepos, smart.value)
+    return to_html(text, breaks, safe, sourcepos, smart.value)
 
 
 def markdown_to_xml(
@@ -42,7 +42,7 @@ def markdown_to_xml(
 
     :return: XML string.
     """
-    return cmark.to_xml(text, sourcepos, smart.value)
+    return to_xml(text, sourcepos, smart.value)
 
 
 def markdown_to_commonmark(
@@ -68,7 +68,7 @@ def markdown_to_commonmark(
     """
     if isinstance(breaks, LineBreaks):
         breaks = breaks.value
-    return cmark.to_commonmark(text, breaks, width, smart.value)
+    return to_commonmark(text, breaks, width, smart.value)
 
 
 def markdown_to_man(
@@ -95,7 +95,7 @@ def markdown_to_man(
     """
     if isinstance(breaks, LineBreaks):
         breaks = breaks.value
-    return cmark.to_man(text, breaks, width, smart.value)
+    return to_man(text, breaks, width, smart.value)
 
 
 def markdown_to_latex(
@@ -121,4 +121,4 @@ def markdown_to_latex(
     """
     if isinstance(breaks, LineBreaks):
         breaks = breaks.value
-    return cmark.to_latex(text, breaks, width, smart.value)
+    return to_latex(text, breaks, width, smart.value)

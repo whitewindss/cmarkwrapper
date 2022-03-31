@@ -2,7 +2,7 @@ from typing import Optional
 
 from paka.cmark import lowlevel
 
-from .types import DelimiterType, ListType, NodeType
+from .types import Delimiter, ListType, NodeType
 
 
 class Node:
@@ -183,17 +183,17 @@ class Node:
         res = lowlevel.node_set_list_type(self._node, list_type.value)
         return bool(res)
 
-    def get_list_delim(self) -> DelimiterType:
+    def get_list_delim(self) -> Delimiter:
         """Return type of list delimiter.
 
-        :returns: One of DelimiterType.
+        :returns: One of Delimiter.
         """
-        return DelimiterType(lowlevel.node_get_list_delim(self._node))
+        return Delimiter(lowlevel.node_get_list_delim(self._node))
 
-    def set_list_delim(self, list_delim: DelimiterType):
+    def set_list_delim(self, list_delim: Delimiter):
         """Set the type of list delimiter for node.
 
-        :param list_delim: One of DelimiterType.
+        :param list_delim: One of Delimiter.
 
         :return: ``True`` on success, ``False`` on failure.
         """
